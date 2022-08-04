@@ -1,8 +1,11 @@
 const db=require('../config/db');
+
 createMovie=(req,res)=>{
     let {name,release,genre}=req.body;
+
+    let filename=new Date().toISOString().replace(/:/g,'-')+'-'+req.file.originalname ;
     let sql='insert into movie set ?';
-    let body={name:name,release_year:release,genre:genre};
+    let body={name:name,release_year:release,genre:genre,image:filename};
     db.query(sql,body,(err,result)=>{
         if(!err)
         {
