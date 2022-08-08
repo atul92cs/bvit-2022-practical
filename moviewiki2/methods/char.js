@@ -66,37 +66,17 @@ updateCharacter=(req,res)=>{
         }
     });
 }
-getCharactersbyMovie=(req,res)=>{
-    let {id}=req.params;
+getCharactersbyMovie=(id)=>{
+    
     let sql ='select character.id as id ,character.name as name,character.age as age ,character.charname as casted ,movie.name as movie,genre.name as genre from character left join movie on character.movie=movie.id left join genre on movie.genre=genre.id where character.movie=?';
     let body=[id];
-    db.query(sql,body,(err,resutl)=>{
-        if(!err)
-        {
-            if(result.length>0)
-            {
-                
-                return res.status(200).json({
-                    characters:result
-                });
-            }
-            else
-            {
-                return res.status(404).json({
-                    msg:'no data found'
-                });
-            
-            }
-        }
-        else
-        {
-            return res.status(400).json({
-                msg:'error occured',
-                error:err
-            });
-        
-        } 
-    });
+   return db.query(sql,body);
+
+}
+getMovies=()=>{
+    
+    let sql ='select * from movie';
+   return db.query(sql);
 
 }
 getCharacter=(req,res)=>{
@@ -161,4 +141,4 @@ getCharacters=(req,res)=>{
         }  
     });
 }
-module.exports={createCharacter,deleteCharacter,updateCharacter,getCharacter,getCharacters,getCharactersbyMovie};
+module.exports={createCharacter,deleteCharacter,updateCharacter,getCharacter,getCharacters,getCharactersbyMovie,getMovies};

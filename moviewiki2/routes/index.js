@@ -1,8 +1,28 @@
 let express=require('express');
 let router=express.Router();
-let {getCharactersbyMovie}=require('../methods/genre');
+let db=require('../config/db');
+let {getCharactersbyMovie,getMovies}=require('../methods/char');
 router.get('/',(req,res)=>{
-    let chars=getCharactersbyMovie(req,res);
-    res.render('index',{chars:chars});
+    
+    //let movies=getMovies();
+    let sql ='select * from movie';
+    db.query(sql,(err,result)=>{
+        if(!err)
+        {
+            if(result.length>0)
+            {
+                res.render('index',{movies:result});
+            }
+            else
+            {
+                let msg='no movies found';
+                res.render('index',{msg:msg});
+            }
+        }
+        else
+        {
+            res.render('index',{msg:err});
+        }
+    });    
 });
 module.exports=router;
