@@ -1,0 +1,22 @@
+<form action="/movie/add" method="post" id="movie-form" enctype="multipart/form-data">
+ <div class="form-group">
+   <input type="text" name="name" id="name">
+ </div>
+ <div class="form-group">
+    <input type="number" name="release" id="">
+ </div>
+ <div class="form-group">
+    <select name="genre" id="">
+    {{#each genres}}
+    <option value="{{this.id}}">{{this.name}}</option>
+    {{/each}}
+    </select>
+ </div>
+ <div class="form-group">
+    <input type="file" name="image" id="">
+ </div>
+ <div class="form-group">
+    <button type="submit">Add</button>
+ </div>
+ 
+</form>

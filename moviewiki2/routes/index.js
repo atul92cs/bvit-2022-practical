@@ -25,4 +25,20 @@ router.get('/',(req,res)=>{
         }
     });    
 });
+router.get('/addmovie',(req,res)=>{
+    let sql='select * from genre';
+    db.query(sql,(err,result)=>{
+        if(!err)
+        {
+            if(result.length>0)
+            {
+                res.render('addmovie',{genres:result});
+            }
+        }
+        else
+        {
+            res.render('addmovie',{err:err});
+        }
+    });
+});
 module.exports=router;
